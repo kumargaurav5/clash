@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { emailQueue, emailQueueName } from "../jobs/EmailJob.js";
 const router = Router();
 router.post("/register", async (req, res) => {
+    console.log("register");
     try {
         const body = req.body;
         const payload = registerSchema.parse(body);
@@ -40,6 +41,7 @@ router.post("/register", async (req, res) => {
         console.log(error);
         if (error instanceof ZodError) {
             const errors = formatError(error);
+            console.log("Validation error");
             return res.status(422).json({ message: "Validation error", errors });
         }
         return res.status(422).json(error);
